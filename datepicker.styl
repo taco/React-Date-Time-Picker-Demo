@@ -1,0 +1,322 @@
+/* datepicker */
+
+.date-picker
+    background-color: white
+    border: 1px solid black
+    font-family: $font-family
+    left: 200px
+    position: absolute
+    top: 200px
+    width: 198px
+    z-index: 10002
+
+    *
+        background-color: transparent
+        border-color: transparent
+        text-align: center
+        /* transition: border-color 0.3s, background-color 0.3s */
+
+    .hidden
+        display: none !important
+
+    .selected
+        background-color: $color-blue
+        border-color: $color-blue
+        color: white
+
+    .date-picker-header
+        display: flex
+        font-size: 1.5rem
+        padding: 8px 5px
+
+        & > *
+            display: block
+            flex: 0
+            min-width: 12px
+            text-align: center
+
+
+        & > span
+            flex: 1
+
+        & > i
+            font-size: 1.7rem
+            font-weight: bold
+
+    .month
+        height: 100%
+        display: flex
+        flex-wrap: wrap
+        width: 100%
+
+        .day
+            background-color: transparent
+            border: 1px solid transparent
+            color: #ccc
+            cursor: pointer
+            display: inline-block
+            padding: 4px 0
+            position: relative
+            width: 28px
+
+            &:hover
+                border-color: $color-blue
+
+            &.day-header
+                color: black
+                cursor: default
+                font-weight: bold
+
+                &:hover
+                    border-color: transparent
+
+            &.current
+                color: black
+
+            &:nth-of-type(8).selected:not(.start):after
+                content: '<<'
+                left: 0
+                position: absolute
+                top: 10px
+
+            &:last-of-type.selected:not(.end):after
+                content: '>>'
+                left: 0
+                position: absolute
+                top: 10px
+
+            &.selected
+                background-color: $color-blue
+                border-color: $color-blue
+                color: white
+
+    .label
+        padding: 8px 0
+        width: 100% !important
+
+    .date-time-container
+        display: flex
+        flex-wrap: wrap
+        font-size:  2.2rem
+        width: 100%
+
+        & > *
+            padding: 12px
+            text-align: center
+            width: 65px
+
+        & > i
+            font-size: 2rem
+            font-weight: bold
+
+        & > i:hover,
+        & > span:hover
+            background-color: $color-blue
+            color: white
+
+    .picker-selector
+        display: flex
+        flex-wrap: wrap
+        width: 100%
+
+        & > *
+            padding: 8px 0
+
+            &:not(.label):hover
+                background-color: $color-blue
+                color: white
+
+    .hour-picker > *
+        width: 32px
+
+    .minute-picker > *
+        width: 39px
+
+    .month-picker > *
+        width: 60px
+
+    .mode-selector
+        display: flex
+
+        & > *
+            flex: 1
+            padding: 5px 0
+
+            &:hover
+                background-color: $color-blue
+                color: white
+
+/* tiles */
+.event-tile
+    width: 320px
+    height: 120px
+    border: solid 1px #444
+    border-radius: 2px
+    padding: 4px
+    background: #3d3d3d
+    background: linear-gradient(to bottom, #3d3d3d 0%,#313131 100%)
+    float: left
+    margin: 0 3px 3px 0
+    overflow: hidden
+
+    &.severity-verbose h4, &.severity-trace h4, &.severity-debug h4
+        color: #ccc // grey
+    &.severity-info h4
+        color: #eee // white
+    &.severity-notice h4
+        color: #8fdd00 // green
+    &.severity-warn h4
+        color: #1a9dff // blue
+    &.severity-error h4
+        color: #a335ee // purple
+
+    h4
+        margin: 0
+        font-size: 18px
+        text-shadow: -1px -1px 0 #111,1px -1px 0 #111,-1px 1px 0 #111,1px 1px 0 #111,-1px -1px 1px #111,1px -1px 1px #111,-1px 1px 1px #111,1px 1px 1px #111
+
+    .category, .tenantid, .siteid, .correlationid
+        font-size: 12px
+        line-height: 20px
+        color: #ccc
+        overflow: hidden
+        text-overflow: ellipsis
+
+    .category
+        display: block
+        padding-left: 4em
+
+        &:before
+            float: left
+            margin-left: -4em
+            content: 'category '
+            opacity: 0.5
+
+    .siteid, .correlationid
+        margin-left: 4px
+        padding-left: 4px
+        border-left: 1px solid
+
+    .tenantid:before
+        content: 'tenant '
+        opacity: 0.5
+
+    .siteid:before
+        content: 'site '
+        opacity: 0.5
+
+    .correlationid:before
+        content: 'correlation '
+        opacity: 0.5
+
+    .content
+        color: white
+        display: block
+        font-size: 15px
+        padding: 6px 10px
+        height: 66px
+        line-height: 20px
+        overflow: hidden
+        text-overflow: ellipsis
+
+/* fancy detail */
+.fancy-detail
+    display: none              // hidden by default
+    .fancy &
+        display: block         // but displayed when its parent is fancy!
+
+.fancy-detail
+    width: 520px
+    margin-right: 40px
+    padding: 20px
+    border-radius: 3px;
+    box-shadow: 0 0 4px #494949
+    border: solid 1px #000
+    background: #3d3d3d
+    background: linear-gradient(to bottom, #3d3d3d 0%,#313131 100%)
+
+    &.severity-verbose h3, &.severity-trace h3, &.severity-debug h3
+        color: #ccc // grey
+    &.severity-info h3
+        color: #eee // white
+    &.severity-notice h3
+        color: #8fdd00 // green
+    &.severity-warn h3
+        color: #1a9dff // blue
+    &.severity-error h3
+        color: #a335ee // purple
+
+    h3
+        margin: 0
+        font-size: 24px
+        text-shadow: -1px -1px 0 #111,1px -1px 0 #111,-1px 1px 0 #111,1px 1px 0 #111,-1px -1px 1px #111,1px -1px 1px #111,-1px 1px 1px #111,1px 1px 1px #111
+
+    .category
+        display: block
+        font-size: 14px
+        line-height: 15px
+        color: #ccc
+        overflow: hidden
+        text-overflow: ellipsis
+
+    .tenantid,.siteid
+        display: inline-block
+        margin: 20px 10px 20px 0
+        padding: 0 8px 0 60px
+        font-size: 150%
+        color: #5EA0F2 // blue
+        border-bottom: solid 6px #282828 // black-ish
+        border-radius: 3px
+        &:before
+            text-align: right
+            font-size: 14px
+            color: #ccc
+            display: block
+            opacity: 0.5
+
+    .tenantid:before
+        content: 'tenant '
+    .siteid:before
+        content: 'site '
+
+
+    .correlationid, .severity, .timestamp, .url, .content, .exception-message
+        display: block
+        font-size: 14px
+        line-height: 20px
+        color: #ccc
+        overflow: hidden
+        text-overflow: ellipsis
+        color: #5EA0F2 // blue
+        &:before
+            display: inline-block
+            color: #DCC9A5 // yellow
+            width: 130px
+
+    .correlationid:before
+        content: 'Correlation Id '
+
+    .severity:before
+        content: 'Severity '
+
+    .timestamp, .url  // slightly less important stats
+        &:before
+            color: #948c7b // fancy mustard
+
+    .timestamp
+        margin-top: 10px
+        &:before
+            content: 'Timestamp (local) '
+
+    .url:before
+        content: 'Url '
+
+    .content, .exception-message
+        color: #fff // white
+        margin-top: 20px
+
+    .content:before
+            content: 'Content '
+
+    .exception-message:before
+            content: 'Exception Message '

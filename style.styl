@@ -1,0 +1,840 @@
+/** LEVEL 0: VARIABLES & MIXINS **/
+
+literal-join(delim, args)
+    ret = ''
+    ret += i ? delim + s('%s', arg) : s('%s', arg) for arg, i in args
+    unquote(ret)
+
+user-select()
+    user-select: arguments
+    -moz-user-select: arguments
+    -webkit-user-select: arguments
+
+transform()
+    transform: arguments
+    -webkit-transform: arguments
+
+transform-origin()
+    transform-origin: arguments
+    -webkit-transform-origin: arguments
+
+transition(duration, delay, timing, properties...)
+    transition-delay: delay
+    transition-duration: duration
+    transition-property: literal-join(', ', properties)
+    transition-timing-function: timing
+
+$font-family = 'Source Sans Pro', tahoma, arial, sans-serif
+
+$color-blue = rgb(60, 134, 210)
+$color-border = rgb(230, 230, 230)
+$color-heading = rgb(77, 78, 83)
+$color-text = rgb(90, 90, 90)
+
+$color-framework-gray = rgb(187, 190, 191)
+$color-framework-gray-border = rgb(221, 223, 223)
+
+/** LEVEL 1: DOCUMENT ELEMENTS **/
+
+*
+    box-sizing: border-box
+    -moz-box-sizing: border-box
+
+html,
+body
+    font-size: 10px
+    height: 100%
+    margin: 0px
+    overflow: hidden
+    padding: 0px
+    width: 100%
+
+ul
+    list-style-image: none
+    list-style-type: none
+    margin: 0px
+    padding: 0px
+
+li
+    margin: 0px
+    padding: 0px
+
+h2
+    font-size: 2rem
+    font-weight: 400
+    margin: 0px
+    padding: 0px
+
+h3
+    font-size: 2rem
+    font-weight: 400
+    margin: 0px
+    padding: 0px
+
+button
+    background: none rgb(240, 240, 240)
+    border: 0px none
+    border-radius: 2px
+    color: rgb(68, 68, 68)
+    cursor: pointer
+    display: inline-flex
+    font-family: $font-family
+    font-size: 1.6rem
+    height: 2em
+    margin: 0px
+    outline: 0px none
+    padding: 0px 1em
+    -webkit-appearance: none
+
+/** LEVEL 2: FRAMEWORK ELEMENTS **/
+
+.viewport
+    background-color: rgb(255, 255, 255)
+    color: $color-text
+    font-family: $font-family
+    font-size: 1.6rem
+    height: 100%
+    line-height: 1.0
+    overflow: hidden
+    width: 100%
+
+.header
+    align-content: center
+    align-items: center
+    background-color: rgb(68, 68, 68)
+    display: flex
+    height: 60px
+    left: 0px
+    position: absolute
+    transition: 0.2s 0s ease-in-out top
+    top: 0px
+    width: 100%
+    z-index: 2
+
+.main
+    border-top: 60px solid transparent
+    height: 100%
+    position: relative
+
+.page
+    border-color: transparent
+    border-style: solid
+    border-width: 0px 0px 20px
+    height: 100%
+    left: 0px
+    overflow-x: hidden
+    overflow-y: auto
+    padding: 20px 20px 0px
+    position: absolute
+    transition: 0.4s 0s ease-out transform -webkit-transform
+    top: 0px
+    width: 100%
+
+    &:nth-of-type(1)
+        transform: translateX(-100%)
+
+    &:nth-of-type(3)
+        transform: translateX(100%)
+
+.page-inner
+    align-items: stretch
+    display: flex
+    height: 100%
+    padding-top: 3rem
+    position: relative
+
+    & > .list
+        border: 1px solid $color-border
+        width: 100%
+
+    & > .list-mode-table
+        .list-header
+            overflow-x: hidden
+            overflow-y: scroll
+
+    & > .load-mask
+        align-items: center
+        border: 1px solid $color-border
+        display: flex
+        justify-content: center
+        position: relative
+        text-align: center
+        width: 100%
+
+        .load-mask-inner
+            font-size: 4rem
+            opacity: 0.25
+            text-transform: lowercase
+
+        .load-mask-text
+            margin-bottom: 2rem
+
+        .fa
+            font-size: 10vh
+
+.page-heading
+    align-items: flex-end
+    display: flex
+    height: 3rem
+    left: 0px
+    margin-bottom: 1rem
+    padding: 0px 5px
+    position: absolute
+    top: -1rem
+    width: 100%
+
+    .tools
+        font-size: 1.4rem
+
+    .tool
+        margin-left: 10px
+
+/** LEVEL 3: REUSABLE COMPONENTS & CLASSES **/
+
+.fa
+    user-select: none
+
+.tools
+    display: flex
+    margin-left: auto
+
+.tool
+    cursor: pointer
+
+    &.pressed
+        color: $color-blue
+
+.block-heading
+    display: flex
+    margin-bottom: 10px
+    padding: 0px 5px
+
+    .tool
+        text-align: center
+        width: 20px
+
+.commit-button
+    background-color: $color-blue
+    color: rgb(250, 250, 250)
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.2)
+
+    &:hover
+        background-color: lighten($color-blue, 5%)
+
+.list
+    position: relative
+
+    .list-body
+        margin-bottom: 32px
+        overflow-x: hidden
+        overflow-y: scroll
+        width: 100%
+
+    .list-footer
+        border-top: 1px solid $color-border
+        bottom: 0px
+        left: 0px
+        overflow-y: scroll
+        position: absolute
+        width: 100%
+
+    .pager
+        display: flex
+        padding: 7px 10px 8px
+
+        .pager-count
+            flex: 1 1 auto
+
+        .pager-button
+            .fa
+                cursor: pointer
+                margin: 0px 5px
+
+.list-mode-table
+    align-items: stretch
+    display: flex
+
+    .list-header
+        left: 0px
+        position: absolute
+        top: 0px
+        width: 100%
+
+    .list-footer
+        border-top: 1px solid $color-border
+        bottom: 0px
+        left: 0px
+        overflow-y: scroll
+        position: absolute
+        width: 100%
+
+    .row
+        cursor: default
+        display: flex
+
+    .body-row
+        font-size: 1.5rem
+
+    .cell
+        background-color: rgb(252, 252, 252)
+        border-color: $color-border
+        border-style: solid
+        border-width: 0px 0px 1px
+        box-shadow: inset -1px 0px rgb(255, 255, 255), inset 1px 0px rgb(255, 255, 255)
+        display: block
+        overflow: hidden
+        padding: 8px 10px 7px
+        text-overflow: ellipsis
+        white-space: nowrap
+
+    .header-cell
+        background-color: rgb(245, 245, 245)
+
+.list-mode-tiles
+    display: flex
+
+    .list-body
+        align-content: flex-start
+        display: flex
+        flex-wrap: wrap
+        margin-top: 0px
+        padding-top: 10px
+
+    .header-row
+        display: none
+
+.picker
+    cursor: pointer
+    font-size: 1.4rem
+    font-weight: 600
+    position: relative
+    user-select: none
+    vertical-align: top
+
+    &.expanded
+        .picker-header
+            background-color: rgb(255, 255, 255)
+            background-image: none
+            border-radius: 2px 2px 0px 0px
+        
+        .picker-body
+            display: block
+
+.picker-header
+    background-color: rgb(245, 245, 245)
+    background-image: linear-gradient(167.5deg, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.02))
+    border: 1px solid $color-border
+    border-radius: 0px
+
+    &:hover
+        background-color: rgb(255, 255, 255)
+
+.picker-label
+    font-weight: 400
+    padding: 7px 10px
+
+.picker-value
+    padding: 0px 10px 7px
+
+.picker-body
+    background-color: rgb(240, 240, 240)
+    border-color: $color-border
+    border-radius: 0px 0px 2px 2px
+    border-style: solid
+    border-width: 0px 1px 1px
+    display: none
+    left: 0px
+    top: 100%
+    width: 100%
+    z-index: 2
+
+    .date-picker
+        position: static
+
+.picker-list-item
+    display: flex
+    padding: 7px 10px
+
+    .fa
+        color: rgb(240, 240, 240)
+        margin-left: auto
+
+    &:hover
+        background-color: rgb(255, 255, 255)
+
+    &.selected
+        .fa
+            color: $color-blue
+
+/** LEVEL 4: COMPONENT INSTANCES **/
+
+/* logo */
+.logzu-logo
+    color: $color-blue
+    cursor: pointer
+    display: inline-flex
+    font-size: 4rem
+    font-weight: 300
+    line-height: 1.5
+    margin: 0px 10px
+    padding: 0px 10px
+    text-align: center
+    user-select: none
+
+.alpha-sticker
+    border: 1px solid $color-blue
+    border-radius: 2px
+    color: $color-blue
+    letter-spacing: 4px
+    margin: 0px 20px 0px auto
+    padding: 1px 4px 2px 8px
+    text-transform: uppercase
+
+.page
+    .logzu-logo
+        background-color: rgb(68, 68, 68)
+        display: block
+        font-size: 6.4rem
+        line-height: 1.0
+        margin: 0px auto 60px
+        padding-bottom: 60px
+
+/* search */
+.search
+    margin: 0px auto 1.6rem
+    position: relative
+    text-align: center
+    width: 600px
+
+.search-input
+    background-color: white
+    border-color: $color-framework-gray-border
+    border-radius: 2px
+    border-style: solid
+    border-width: 1px
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.05)
+    color: $color-text
+    font-family: $font-family
+    font-size: 2.4rem
+    font-weight: 300
+    margin: 0px
+    outline: 0px none !important
+    padding: 7px 120px 7px 7px
+    transition: 0.4s 0s ease all
+    width: 100%
+    -webkit-appearance: none
+
+    &:focus
+        border-color: $color-blue
+        box-shadow: 0px 0px 12px rgba($color-blue, 0.2)
+
+.search-parameter
+    bottom: 15px
+    position: absolute
+    right: 10px
+
+.search-help
+    color: $color-framework-gray
+    font-size: 2.7rem
+    font-weight: 300
+    text-align: center
+
+    .advanced-search-link
+        color: $color-blue
+        cursor: pointer
+        display: inline-flex
+        font-size: 1.6rem
+        font-weight: 400
+        margin-bottom: 10rem
+
+/* event detail */
+.event-property-list
+    flex: 1 0 auto
+    font-size: 1.4rem
+    margin: 0px
+    max-width: 600px
+    padding: 0px
+
+    &.nested
+        border-left: 1px solid rgb(230, 230, 230)
+        font-size: inherit
+        margin-bottom: 5px
+        margin-left: 15px
+
+.event-property-key
+    align-items: center
+    color: rgba($color-text, 0.7)
+    display: flex
+    font-weight: 400
+    line-height: 2.4rem
+    overflow: hidden
+    padding: 0px 0.7rem
+
+    .fa
+        flex: none
+        margin-right: 10px
+
+    span
+        flex: none
+
+    .event-property-preview
+        flex: auto
+
+    &.expanded
+        & + .event-property-value
+            display: block
+
+.event-property-value
+    border-color: $color-border
+    border-style: solid
+    border-width: 0px 0px 1px
+    display: none
+    font-weight: 600
+    margin: 0px
+    min-height: 2.4rem
+    overflow: visible
+    text-overflow: ellipsis
+    word-break: break-word
+
+    & > span
+        display: inline-block
+        padding: 5px 7px 5px 35px
+        width: 600px
+
+.event-property-preview
+    color: $color-text
+    margin-left: 14px
+    overflow: hidden
+    text-overflow: ellipsis
+    white-space: nowrap
+
+.event-property-type
+    font-style: italic
+    text-transform: capitalize
+
+/* pages */
+.controller-home
+    .header
+        top: -60px
+
+    .main
+        border-top-color: rgb(68, 68, 68)
+
+    .page
+        &:nth-of-type(1)
+            padding: 0px
+            transform: translateX(0px)
+
+        &:nth-of-type(2)
+            transform: translateX(100%)
+
+        &:nth-of-type(3)
+            transform: translateX(200%)
+
+    .page-inner
+        display: block
+        padding-top: 0px
+
+.controller-detail
+    .page
+        &:nth-of-type(1)
+            transform: translateX(-200%)
+
+        &:nth-of-type(2)
+            transform: translateX(-100%)
+
+        &:nth-of-type(3)
+            transform: translateX(0px)
+
+.controller-search,
+.controller-trace
+    .page-inner
+        overflow: hidden
+
+.tooltip-expanded
+    padding-bottom: 310px
+
+    .tooltip
+        bottom: 0px
+
+.tooltip
+    border: 1px solid $color-border
+    bottom: -300px
+    display: flex
+    flex-direction: column
+    height: 300px
+    left: 0px
+    padding: 10px
+    position: absolute
+    width: 100%
+
+    .block-heading
+        flex: none
+
+.event-detail
+    border-top: 1px solid rgb(230, 230, 230)
+    display: flex
+    flex: auto
+
+    .tabs
+        border-right: 1px solid rgb(230, 230, 230)
+        flex: none
+        min-height: 15rem
+        width: 12rem
+
+    .tab
+        border-right: 3px solid rgb(255, 255, 255)
+        cursor: pointer
+        margin: 5px 0px 10px
+        padding: 5px 15px
+        text-align: right
+
+        &.active
+            border-right-color: $color-blue
+
+    .cards
+        flex: auto
+        overflow: hidden
+        position: relative
+
+    .card
+        display: none
+        height: 100%
+        left: 0px
+        overflow: auto
+        padding: 10px 15px
+        position: absolute
+        top: 0px
+        width: 100%
+
+        &.active
+            display: block
+
+    .card-overview
+        &.active
+            align-content: flex-start
+            align-items: flex-start
+            display: flex
+            flex-wrap: wrap
+
+        ul.tooltip-values
+            flex: 1 1 50%
+
+        dl.tooltip-values
+            display: flex
+            flex: 1 1 50%
+            flex-wrap: wrap
+            margin: 0px
+
+            .tooltip-label
+                border-bottom: 1px solid rgb(230, 230, 230)
+                color: rgba($color-text, 0.7)
+                flex: 1 1 40%
+                padding: 8px 0px 8px 8px
+
+            .tooltip-value
+                border-bottom: 1px solid rgb(230, 230, 230)
+                flex: 1 1 60%
+                margin: 0px
+                padding: 8px 8px 8px 0px
+                text-align: right
+
+            .tooltip-label-tenantid,
+            .tooltip-value-tenantid,
+            .tooltip-label-siteid,
+            .tooltip-value-siteid
+                flex: 1 1 25%
+
+            .tooltip-value-tenantid
+                border-right: 1px solid rgb(230, 230, 230)
+
+        div.tooltip-values
+            background-color: rgb(250, 250, 250)
+            border: 1px solid rgb(230, 230, 230)
+            flex: 0 0 100%
+            margin-top: 20px
+            padding: 10px
+
+        .tooltip-value-severity
+            font-size: 3.6rem
+
+            .fa
+                color: rgb(187, 190, 191)
+                font-size: 2.4rem
+                margin-right: 10px
+
+            .severity-error
+                color: rgb(210, 70, 60)
+
+            .severity-warn
+                color: rgb(252, 194, 0)
+
+            span
+                font-weight: 300
+
+        .tooltip-value-timestamp
+            font-size: 2rem
+            font-weight: 300
+            margin-top: 18px
+
+    .card-stack
+        font-size: 1.3rem
+        line-height: 1.5
+
+.sidebar
+    border: 1px solid $color-border
+    flex: 0 0 350px
+    margin-right: 10px
+    min-width: 0px
+    overflow-y: scroll
+    padding: 10px
+    position: relative
+
+    &:not(.active)
+        flex: 0 0 42px
+        overflow-y: hidden
+
+        & > *
+            display: none
+
+        & > .block-heading
+            display: flex
+            padding: 0px
+
+            & > span
+                left: 30px
+                position: absolute
+                top: 40px
+                transform: rotate(90deg)
+                transform-origin: 0% 0%
+
+.filters
+    .picker
+        margin: 0px 0px 15px
+
+    .filter-actions
+        border-top: 1px solid $color-border
+        padding-top: 10px
+        text-align: center
+
+/* results list */
+.results-list
+    .column-severity
+        .fa
+            color: rgb(187, 190, 191)
+
+        .severity-error
+            color: rgb(210, 70, 60)
+
+        .severity-warn
+            color: rgb(252, 194, 0)
+
+    &.list-mode-table
+        background-color: rgb(245, 245, 245)
+
+        .cell
+            flex: 1 1 12rem
+            min-width: 4rem
+
+        .column-timestamp
+            flex: 1 1 14rem
+
+        .column-severity
+            flex: 1 1 10rem
+
+            .fa
+                font-size: 1.4rem
+                margin-right: 10px
+
+        .column-correlationid
+            flex: 1 1 25rem
+
+        .column-content
+            flex: 20 1 25rem
+
+        .column-actions
+            flex: 0 0 7rem
+            min-width: 7rem
+            text-align: center
+
+            .fa
+                margin: 0px 5px
+
+    &.list-mode-tiles
+        .row
+            border: 1px solid rgb(230, 230, 230)
+            height: 200px
+            margin: 0px 0px 10px 10px
+            overflow: hidden
+            padding: 50px 10px 10px
+            position: relative
+            transition: 0.1s 0s ease-in-out all
+            width: 200px
+
+            &:hover
+                color: $color-text
+
+                .column-severity
+                    background-color: rgb(255, 255, 255)
+                    border-bottom-color: rgb(230, 230, 230)
+
+        .cell
+            transition: 0.1s 0s ease-in-out all
+
+        .column-severity
+            border-bottom: 1px solid rgb(245, 245, 245)
+            font-size: 2.4rem
+            left: 0px
+            overflow: hidden
+            padding: 8px
+            position: absolute
+            text-transform: lowercase
+            top: 0px
+            width: 100%
+
+            .fa
+                font-size: 1.6rem
+                margin-right: 6px
+
+            span
+                font-weight: 300
+
+        .column-actions
+            font-size: 2.4rem
+            height: 40px
+            left: 0px
+            padding: 8px
+            position: absolute
+            text-align: right
+            top: 0px
+            width: 100%
+
+            .tool
+                font-size: 1.6rem
+                margin-left: 8px
+
+        .column-timestamp
+            font-size: 1.5rem
+            
+        .column-applicationname
+            font-size: 1.8rem
+            margin-top: 8px
+            overflow: hidden
+            text-overflow: ellipsis
+            white-space: nowrap
+            width: 100%
+        
+        .column-content
+            color: rgba($color-text, 0.7)
+            font-size: 1.4rem
+            height: 7.2rem
+            margin-top: 8px
+            overflow: hidden
+            
+        .column-correlationid
+            color: rgba($color-text, 0.7)
+            font-size: 1.1rem
+            margin-top: 10px
+            text-align: center
+
+@import 'datepicker'
